@@ -4,17 +4,20 @@ const connector = require("./connector")
 const portConfig = require("./portConfig")
 
 const run = async () => {
-    try {
-        const response = await connector.request({
-            data: {
-                name: "um dado"
-            },
-            port: portConfig.stringServer
-        })
-        console.log(response)
-    }
-    catch (error) {
-        console.log(error)
+    // eslint-disable-next-line no-constant-condition
+    while(true) {
+        try {
+            const response = await connector.request({
+                data: {
+                    subStr: ` - ID ${cluster.worker.id}`
+                },
+                port: portConfig.stringServer
+            })
+            console.log(response)
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 }
 

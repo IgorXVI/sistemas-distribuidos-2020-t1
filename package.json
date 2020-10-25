@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "node ./src/client",
+    "stringServer": "nodemon ./src/stringServer",
+    "authServer": "nodemon ./src/authServer"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^7.12.0"
+    "eslint": "^7.12.0",
+    "nodemon": "^2.0.6"
   },
   "dependencies": {
     "cluster": "^0.7.7"
