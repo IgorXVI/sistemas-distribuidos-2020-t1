@@ -1,22 +1,28 @@
-const net = require("net")
+const cluster = require("cluster")
 
-const options = {
-    port: 2220
+const connector = require("./connector")
+const portConfig = require("./portConfig")
+
+const run = async () => {
+    try {
+        const response = await connector.request({
+            data: {
+                name: "um dado"
+            },
+            port: portConfig.stringServer
+        })
+        console.log(response)
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
-const userInfo = {
-    user: "igor",
-    password: "password1",
-    type: "G"
+if (cluster.isMaster) {
+    for (let i = 0; i < 2; i++) {
+        cluster.fork()
+    }
 }
-
-const userInfoStr = JSON.stringify(userInfo)
-
-const client = net.createConnection(options, () => {
-    client.write(userInfoStr + "\r\n")
-})
-
-client.on("data", data => {
-    console.log("Returned data: ", JSON.parse(data.toString()))
-    client.end()
-})
+else {
+    run()
+}
