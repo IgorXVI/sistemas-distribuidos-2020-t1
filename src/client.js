@@ -1,4 +1,5 @@
 const cluster = require("cluster")
+const delay = require("delay")
 
 const connector = require("./connector")
 const portConfig = require("./portConfig")
@@ -9,7 +10,7 @@ const run = async () => {
         try {
             const response = await connector.request({
                 data: {
-                    subStr: ` - ID ${cluster.worker.id}`
+                    subStr: ` - ID ${cluster.worker.id}: ${new Date().getTime()}`
                 },
                 port: portConfig.stringServer
             })
@@ -18,6 +19,8 @@ const run = async () => {
         catch (error) {
             console.log(error)
         }
+   
+        await delay(Math.random() * 2000 + 3000)
     }
 }
 
