@@ -28,7 +28,7 @@ const makeSuccessResponse = () => ({
 
 //se der erro, retorna um json com um atributo success com valor false e a mensagem de erro 
 const makeErrorResponse = message => ({
-    success: true,
+    success: false,
     message
 })
 
