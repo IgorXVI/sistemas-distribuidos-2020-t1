@@ -11,13 +11,17 @@ const run = async () => {
     while(true) {
         try {
             //faz requisição para o servidor de string, pedindo para concatenar a substring à string global
+               
+            const id = `${cluster.worker.id}: ${new Date().getTime()}`
+
             const response = await connector.request({
                 data: {
-                    subStr: ` - ID ${cluster.worker.id}: ${new Date().getTime()}`
+                    subStr: ` - ID ${id}`
                 },
                 port: portConfig.stringServer
             })
             //resposta do servidor de string, contendo uma flag de sucesso e a string global modificada (success: true) ou uma mensagem de erro (success: false)
+            response.id = id
             console.log(response)
         }
         catch (error) {
